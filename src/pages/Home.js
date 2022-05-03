@@ -18,7 +18,7 @@ function Home() {
       navigate("/login");
     } else {
       axios
-        .get("http://localhost:3001/posts", {
+        .get("https://full-stack-api-yohan.herokuapp.com/posts", {
           headers: { accessToken: localStorage.getItem("accessToken") },
         })
         .then((response) => {
@@ -36,7 +36,7 @@ function Home() {
   const LikeAPost = (postId) => {
     axios
       .post(
-        "http://localhost:3001/likes",
+        "https://full-stack-api-yohan.herokuapp.com/likes",
         { PostId: postId }, //PostId를 object로 보내고
         { headers: { accessToken: localStorage.getItem("accessToken") } } //validateToken을 위해 config를 보낸다.
       )

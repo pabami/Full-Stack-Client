@@ -11,13 +11,17 @@ function Profile() {
   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/auth/basicinfo/${id}`).then((response) => {
-      setUsername(response.data.username);
-    });
+    axios
+      .get(`https://full-stack-api-yohan.herokuapp.com/auth/basicinfo/${id}`)
+      .then((response) => {
+        setUsername(response.data.username);
+      });
 
-    axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
-      setListOfPosts(response.data);
-    });
+    axios
+      .get(`https://full-stack-api-yohan.herokuapp.com/posts/byuserId/${id}`)
+      .then((response) => {
+        setListOfPosts(response.data);
+      });
   }, []);
 
   return (

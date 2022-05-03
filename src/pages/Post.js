@@ -14,21 +14,25 @@ function Post() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
-      setPostObject(response.data);
-    });
-    axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
-      //이렇게 서버에서 해당 아이디와 포함된 모든 comments를 가져온다.
-      setComments(response.data);
-      //위에 useState 사용해서 가져온 data(response.data)를 comments로 만들다. var comments = response.data 같은 것임
-    });
+    axios
+      .get(`https://full-stack-api-yohan.herokuapp.com/posts/byId/${id}`)
+      .then((response) => {
+        setPostObject(response.data);
+      });
+    axios
+      .get(`https://full-stack-api-yohan.herokuapp.com/comments/${id}`)
+      .then((response) => {
+        //이렇게 서버에서 해당 아이디와 포함된 모든 comments를 가져온다.
+        setComments(response.data);
+        //위에 useState 사용해서 가져온 data(response.data)를 comments로 만들다. var comments = response.data 같은 것임
+      });
   }, []);
   //여기에 [] 이거 안 넣으면 계속 api request를 할 것이다.
 
   const addComment = () => {
     axios
       .post(
-        "http://localhost:3001/comments",
+        "https://full-stack-api-yohan.herokuapp.com/comments",
         {
           commentBody: newComment,
           PostId: id,
@@ -59,7 +63,7 @@ function Post() {
 
   const deleteComment = (id) => {
     axios
-      .delete(`http://localhost:3001/comments/${id}`, {
+      .delete(`https://full-stack-api-yohan.herokuapp.com/comments/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
@@ -73,7 +77,7 @@ function Post() {
 
   const deletePost = (id) => {
     axios
-      .delete(`http://localhost:3001/posts/${id}`, {
+      .delete(`https://full-stack-api-yohan.herokuapp.com/posts/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
@@ -86,7 +90,7 @@ function Post() {
       let newTitle = prompt("Enter New Title");
       //prompt에 기록한 것이 newTitle이란 변수에 저장된다.
       axios.put(
-        "http://localhost:3001/posts/title",
+        "https://full-stack-api-yohan.herokuapp.com/posts/title",
         { newTitle: newTitle, id: id },
         {
           headers: { accessToken: localStorage.getItem("accessToken") },
@@ -96,7 +100,7 @@ function Post() {
     } else {
       let newPostText = prompt("Enter New Text");
       axios.put(
-        "http://localhost:3001/posts/postText",
+        "https://full-stack-api-yohan.herokuapp.com/posts/postText",
         { newText: newPostText, id: id },
         {
           headers: { accessToken: localStorage.getItem("accessToken") },
